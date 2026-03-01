@@ -21,7 +21,7 @@ export default function Header({title, showBack, showSearch,
       
       <View className='flex-row items-center flex-1'>
         {showBack && (
-            <TouchableOpacity onPress={()=>router.back} className='mr-3'>                
+            <TouchableOpacity onPress={()=>router.back()} className='mr-3'>                
                 <Ionicons name='arrow-back' size={24} color={COLORS.primary}/>
             </TouchableOpacity>
         )}

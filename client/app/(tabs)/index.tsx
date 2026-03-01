@@ -58,16 +58,18 @@ export default function Home() {
                   <Image source={{uri:banner.image}}
                   className='w-full h-full' resizeMode='cover'/>
 
+                  <View className='absolute inset-0 bg-black/40'/>
+
                   <View className='absolute bottom-4 left-4 z-10'>
                     <Text className='text-white text-2xl font-bold'>{banner.title}</Text>
                     <Text className='text-white text-sm font-medium'>{banner.subtitle}</Text>
                     <TouchableOpacity className='mt-2 bg-white px-4 py-2 rounded-full self-start'>
-                      <Text className='text-pri
+                      <Text className='text-primary
                       font-bold text-xs'>Get Now</Text>
                     </TouchableOpacity>
                   </View>
 
-                  <View className='absolute inset-0 bg-black/40'/>
+                  
 
                 </View>
               ))}
@@ -107,7 +109,7 @@ export default function Home() {
               <View className='flex-row justify-between items-center mb-4'>
                 <Text className='text-xl font-bold text-primary'>Popular</Text>
                 <TouchableOpacity onPress={()=> router.push('/shop')}>
-                  <Text className='text-secondary text-sm'>Seel All</Text>
+                  <Text className='text-secondary text-sm'>See All</Text>
                 </TouchableOpacity>
               </View>
               {loading ? (
@@ -125,7 +127,7 @@ export default function Home() {
             {/* Newsletter CTA */}
             <View className='bg-gray-100 p-6 rounded-2xl mb-20 items-center'>
               <Text className='text-2xl font-bold text-primary mb-2 text-center'>Join the Revolution</Text>
-              <Text className='text-secondary text-center mb-4'>Subscribe to our newsletter and get 10% off your first puchase</Text>
+              <Text className='text-secondary text-center mb-4'>Subscribe to our newsletter and get 10% off your first purchase</Text>
               <TouchableOpacity className='bg-primary w-4/5 py-3 rounded-full items-center'>
                 <Text className='text-white font-medium text-base'>Subscribe Now</Text>
               </TouchableOpacity>
