@@ -32,14 +32,15 @@ export default function ProductDetails() {
 
 
     const fetchProduct = async () => {
-        setProduct(dummyProducts.find((product)=> product._id === id)as any)
+        const found: any = dummyProducts.find((product)=> product._id === id);
+        setProduct(found ?? null)
         setLoading(false)
     }
 
 
     useEffect(()=>{
         fetchProduct()
-    },[])
+    },[id])
 
 
     if (loading) {
@@ -86,9 +87,10 @@ export default function ProductDetails() {
             showsHorizontalScrollIndicator={false} 
             scrollEventThrottle={16}
             onScroll={(e)=>{
-                const slide = Math.ceil(e.nativeEvent.contentOffset.x / 
-                    e.nativeEvent.layoutMeasurement.width)
-                    setActiveImageIndex(slide)
+                const rawIndex = e.nativeEvent.contentOffset.x / e.nativeEvent.layoutMeasurement.width;
+                const slide = Math.round(rawIndex);
+                const clamped = Math.max(0, Math.min(slide, (product.images?.length ?? 1) - 1));
+                setActiveImageIndex(clamped)
             }}
             >
                 {product.images?.map((img, index)=>(
@@ -117,7 +119,7 @@ export default function ProductDetails() {
             <View className='absolute bottom-4 left-0 right-0 flex-row justify-center gap-2'>
                 {product.images?.map((_, index)=>(
                     <View key={index} className={`h-2 rounded-full ${index === activeImageIndex ? 
-                        'w-6 bg-primary' : 'w-2 bg0gray-300'
+                        'w-6 bg-primary' : 'w-2 bg-gray-300'
                     }`}/>
                 ))}
             </View>
@@ -161,7 +163,7 @@ export default function ProductDetails() {
             {/* Description */}
             <Text className='text-base font-bold text-primary mb-2'>Description</Text>
 
-            <Text className='txet-secondary leading-6 mb-6'>{product.description}</Text>
+            <Text className='text-secondary leading-6 mb-6'>{product.description}</Text>
 
         </View>
 
@@ -170,7 +172,7 @@ export default function ProductDetails() {
 
 
       {/* Footer */}
-      <View className='absolute bottom-0 left-0 flex-row riht-0 p-4 bg-white border-t border-gray-100'>
+      <View className='absolute bottom-0 left-0 flex-row right-0 p-4 bg-white border-t border-gray-100'>
         <TouchableOpacity onPress={handleAddToCart} className='w-4/5 bg-primary py-4 rounded-full items-center shadow-lg flex-row justify-center'>
             <Ionicons name='bag-outline' size={20} color='white'/>
             <Text className='text-white font-bold text-base ml-2'>Add to Cart</Text>
@@ -178,7 +180,7 @@ export default function ProductDetails() {
 
         <TouchableOpacity onPress={()=> router.push('/(tabs)/cart')} className='w-1/5 py-3 flex-row justify-center relative'>
             <Ionicons name='cart-outline' size={24}/>
-            <View className='absolute top-2 right-4 sie-4 z-10 bg-black rounded-full justify-center items-center'>
+            <View className='absolute top-2 right-4 size-4 z-10 bg-black rounded-full justify-center items-center'>
                 <Text className='text-white text-[9px]'>{itemCount}</Text>
             </View>
         </TouchableOpacity>
